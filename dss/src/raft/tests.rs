@@ -424,6 +424,7 @@ fn test_count_2b() {
     cfg.check_one_leader();
     let mut total1 = rpcs(&cfg);
 
+    // println!("total1={}",total1 );
     if total1 > 30 || total1 < 1 {
         panic!("too many or few RPCs ({}) to elect initial leader", total1);
     }
@@ -438,7 +439,7 @@ fn test_count_2b() {
 
         let leader = cfg.check_one_leader();
         total1 = rpcs(&cfg);
-
+        println!("total1={}",total1 );
         let iters = 10;
         let (starti, term) = match cfg.rafts.lock().unwrap()[leader]
             .as_ref()
@@ -502,7 +503,7 @@ fn test_count_2b() {
             }
             total2 += cfg.rpc_count(j);
         }
-
+        println!("total2={}",total2 );
         if failed {
             continue 'outer;
         }
